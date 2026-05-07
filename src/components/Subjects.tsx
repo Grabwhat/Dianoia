@@ -27,9 +27,14 @@ export function Subjects() {
   return (
     <div className="py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold mb-4">Psychology Specializations</h1>
-          <p className="text-lg text-muted-foreground">
+        <div className="mb-12 overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-600 px-8 py-12 text-center text-white shadow-2xl shadow-sky-500/20 dark:border-white/10 dark:from-cyan-500 dark:via-sky-700 dark:to-indigo-900">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.35em] text-white/80">
+            Explore Your Path
+          </p>
+          <h1 className="mb-4 text-4xl font-black md:text-5xl">
+            Psychology Specializations
+          </h1>
+          <p className="mx-auto max-w-3xl text-lg text-white/90">
             Explore different branches of psychology and deepen your understanding of
             human behavior and mental processes
           </p>
@@ -41,10 +46,10 @@ export function Subjects() {
             onValueChange={setSelectedSubject}
             className="w-full max-w-6xl"
           >
-            <TabsList className="grid w-full grid-cols-5 gap-2 p-2 bg-muted rounded-xl h-auto min-h-[60px]">
+            <TabsList className="grid h-auto min-h-[60px] w-full grid-cols-5 gap-2 rounded-2xl border border-white/20 bg-white/70 p-2 shadow-lg shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/60">
               <TabsTrigger
                 value="all"
-                className="text-center px-6 py-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer h-auto whitespace-normal"
+                className="h-auto whitespace-normal rounded-xl px-6 py-3 text-center hover:cursor-pointer"
               >
                 All
               </TabsTrigger>
@@ -53,7 +58,7 @@ export function Subjects() {
                 <TabsTrigger
                   key={subject.id}
                   value={subject.id}
-                  className="px-6 py-3 rounded-lg hover:bg-gray-200 hover:cursor-pointer h-auto whitespace-normal"
+                  className="h-auto whitespace-normal rounded-xl px-6 py-3 hover:cursor-pointer"
                 >
                   <span className="hidden sm:inline"> {subject.name} </span>
                   <span className="sm:hidden">
@@ -74,12 +79,12 @@ export function Subjects() {
               return (
                 <Card
                   key={subject.id}
-                  className="cursor-pointer hover:shadow-lg transition-shadow"
+                  className="cursor-pointer overflow-hidden border-white/20 bg-white/80 shadow-lg shadow-sky-500/10 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/20 dark:border-white/10 dark:bg-slate-950/70"
                   onClick={() => setSelectedSubject(subject.id)}
                 >
                   <CardContent className="p-6">
                     <div
-                      className={`size-12 ${subject.color} rounded-lg flex items-center justify-center mb-4`}
+                      className={`mb-4 flex size-12 items-center justify-center rounded-xl ${subject.color} shadow-lg`}
                     >
                       <div className="size-6 bg-white/30 rounded" />
                     </div>
@@ -127,11 +132,11 @@ export function Subjects() {
                   key={course.id}
                   to={`/subjects/${course.subjectId}/${course.id}/overview`}
                 >
-                  <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+                  <Card className="h-full cursor-pointer overflow-hidden border-white/20 bg-white/85 shadow-lg shadow-sky-500/10 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/20 dark:border-white/10 dark:bg-slate-950/75">
                     <CardHeader>
                       <div className="flex items-start justify-between mb-2">
                         <div
-                          className={`size-10 ${subject?.color} rounded-lg flex items-center justify-center`}
+                          className={`size-10 ${subject?.color} rounded-xl flex items-center justify-center shadow-md`}
                         >
                           <div className="size-5 bg-white/30 rounded" />
                         </div>

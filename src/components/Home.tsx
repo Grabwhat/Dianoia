@@ -1,24 +1,24 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, PlayCircle, BookOpen, Flame, Award } from 'lucide-react'
-import { Button } from './ui/button'
-import { useAuth } from './AuthProvider'
-import { courses, subjects } from '../data/courses'
+import { ArrowRight, Award, BookOpen, Flame, PlayCircle, Sparkles } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { useAuth } from './AuthProvider'
 import { supabase } from '../lib/supabase'
+import { courses, subjects } from '../data/courses'
+
+type LessonProgressRow = {
+  course_id: string
+  lesson_id: string
+  completed: boolean | null
+  last_started_at: string | null
+}
 
 export function Home() {
   const { user, profile } = useAuth()
   const [funFact, setFunFact] = useState<string | null>(null)
   const [funFactError, setFunFactError] = useState<string | null>(null)
-  const [lessonProgress, setLessonProgress] = useState<
-    {
-      course_id: string
-      lesson_id: string
-      completed: boolean | null
-      last_started_at: string | null
-    }[]
-  >([])
+  const [lessonProgress, setLessonProgress] = useState<LessonProgressRow[]>([])
   const [currentStreak, setCurrentStreak] = useState(0)
 
   const progressData = useMemo(() => {
@@ -37,10 +37,12 @@ export function Home() {
     const hasStarted = lessonProgress.some((row) => row.course_id === course.id)
     return (completed > 0 || hasStarted) && completed < course.lessons.length
   })
+
   const totalLessonsCompleted = Object.values(progressData).reduce(
     (acc, lessons) => acc + lessons.length,
     0,
   )
+
   const completedCourses = courses.filter((course) => {
     const completed = progressData[course.id]?.length || 0
     return completed === course.lessons.length && completed > 0
@@ -52,21 +54,27 @@ export function Home() {
       const lastRow = lessonProgress
         .filter((row) => row.course_id === course.id)
         .sort((a, b) => {
-          const aT = a.last_started_at ? Date.parse(a.last_started_at) : 0
-          const bT = b.last_started_at ? Date.parse(b.last_started_at) : 0
-          return bT - aT
+          const aTime = a.last_started_at ? Date.parse(a.last_started_at) : 0
+          const bTime = b.last_started_at ? Date.parse(b.last_started_at) : 0
+          return bTime - aTime
         })[0]
+
       const lastLesson = course.lessons.find((lesson) => lesson.id === lastRow?.lesson_id)
       const nextLesson =
         lastLesson && !completed.includes(lastLesson.id)
           ? lastLesson
           : course.lessons.find((lesson) => !completed.includes(lesson.id))
-      const lastStartedAt = lastRow?.last_started_at
-        ? Date.parse(lastRow.last_started_at)
-        : 0
-      return { course, nextLesson, completedCount: completed.length, lastStartedAt }
+
+      return {
+        course,
+        nextLesson,
+        lastStartedAt: lastRow?.last_started_at
+          ? Date.parse(lastRow.last_started_at)
+          : 0,
+      }
     })
     .sort((a, b) => b.lastStartedAt - a.lastStartedAt)[0]
+
   const continueSubject = continueTarget
     ? subjects.find((subject) => subject.id === continueTarget.course.subjectId)
     : undefined
@@ -91,17 +99,20 @@ export function Home() {
   useEffect(() => {
     const loadProgress = async () => {
       if (!user) return
+
       const { data } = await supabase
         .from('lesson_progress')
         .select('course_id, lesson_id, completed, last_started_at')
         .eq('user_id', user.id)
-      setLessonProgress(data ?? [])
+
+      setLessonProgress((data ?? []) as LessonProgressRow[])
 
       const { data: streakRow } = await supabase
         .from('user_streaks')
         .select('current_streak')
         .eq('user_id', user.id)
         .maybeSingle()
+
       setCurrentStreak(streakRow?.current_streak ?? 0)
     }
 
@@ -109,42 +120,46 @@ export function Home() {
   }, [user])
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 text-foreground min-h-screen">
-      <div className="space-y-6 pb-10">
-        <section className="py-10 w-full">
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="space-y-10 pb-12">
+        <section className="bg-gradient-to-br from-cyan-300 via-sky-400 to-indigo-500 dark:from-cyan-900 dark:via-blue-950 dark:to-slate-950 py-16">
           <div className="max-w-6xl mx-auto px-4">
             <div className="max-w-5xl mx-auto text-center">
               {user && (
-                <p className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 drop-shadow-sm break-words">
+                <p className="mb-4 break-words text-3xl font-bold text-white md:text-4xl drop-shadow-sm">
                   Welcome back, {profile?.username || 'there'}
                 </p>
               )}
-              <h1 className="text-5xl md:text-4xl font-bold mb-6 leading-[1.2] pb-1 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent break-words">
-                Master the Psychology of Life With Dianoia
+              <h1 className="mb-6 break-words bg-gradient-to-r from-white via-cyan-50 to-amber-100 bg-clip-text pb-1 text-5xl font-bold leading-[1.2] text-transparent md:text-4xl">
+                Master the Psychology of Life With Vantage
               </h1>
-              <p className="text-xl text-muted-foreground dark:text-white mb-8 break-words">
+              <p className="mb-8 break-words text-xl text-white/90">
                 Explore the fascinating world of psychology through interactive lessons,
                 practice exercises, and evidence-based learning. Understand the mind,
                 behavior, and human experience.
               </p>
 
               {!user ? (
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col justify-center gap-4 sm:flex-row">
                   <Link to="/login">
-                    <Button size="lg" className="gap-2">
+                    <Button size="lg" className="gap-2 bg-slate-950 text-white hover:bg-slate-900">
                       Log in <ArrowRight className="size-4" />
                     </Button>
                   </Link>
                   <Link to="/signup">
-                    <Button size="lg" variant="outline">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-white/70 bg-white/10 text-white hover:bg-white/20"
+                    >
                       Create account
                     </Button>
                   </Link>
                 </div>
               ) : (
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col justify-center gap-4 sm:flex-row">
                   <Link to="/subjects">
-                    <Button size="lg" className="gap-2">
+                    <Button size="lg" className="gap-2 bg-slate-950 text-white hover:bg-slate-900">
                       Explore Psychology Courses <ArrowRight className="size-4" />
                     </Button>
                   </Link>
@@ -157,32 +172,36 @@ export function Home() {
         {!user ? (
           <section className="py-10">
             <div className="max-w-6xl mx-auto px-4">
-              <h2 className="text-3xl font-bold mb-8 text-center">
-                Why Choose Dianoia
+              <h2 className="mb-8 text-center text-3xl font-bold text-slate-900 dark:text-white">
+                Why Choose Vantage
               </h2>
               <div className="grid gap-6 md:grid-cols-3">
                 {[
                   {
                     title: 'Structured Lessons',
                     text: 'Clear, bite-sized modules that build real understanding.',
+                    className:
+                      'border-cyan-200 bg-gradient-to-br from-cyan-50 to-sky-100 dark:border-cyan-900 dark:from-cyan-950/50 dark:to-slate-950',
                   },
                   {
                     title: 'Practice & Quizzes',
                     text: 'Apply concepts with interactive questions and feedback.',
+                    className:
+                      'border-fuchsia-200 bg-gradient-to-br from-fuchsia-50 to-rose-100 dark:border-fuchsia-900 dark:from-fuchsia-950/40 dark:to-slate-950',
                   },
                   {
                     title: 'Progress Tracking',
                     text: 'See your streaks, completed lessons, and growth.',
+                    className:
+                      'border-amber-200 bg-gradient-to-br from-amber-50 to-orange-100 dark:border-amber-900 dark:from-amber-950/40 dark:to-slate-950',
                   },
                 ].map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-2xl border border-border bg-card p-6 shadow-sm"
+                    className={`rounded-2xl border p-6 shadow-sm transition-transform hover:-translate-y-1 ${item.className}`}
                   >
-                    <h3 className="text-lg font-semibold mb-2 break-words">
-                      {item.title}
-                    </h3>
-                    <p className="text-muted-foreground dark:text-white break-words">
+                    <h3 className="mb-2 break-words text-lg font-semibold">{item.title}</h3>
+                    <p className="break-words text-muted-foreground dark:text-white">
                       {item.text}
                     </p>
                   </div>
@@ -193,40 +212,46 @@ export function Home() {
         ) : (
           <section className="py-10">
             <div className="max-w-6xl mx-auto px-4">
-            <div className="mb-10 rounded-2xl border border-border bg-card p-6 shadow-sm">
-              <p className="text-sm text-muted-foreground dark:text-white mb-2">
-                Fun Fact
-              </p>
-              <p className="text-lg dark:text-white break-words">
-                {funFactError ?? funFact ?? 'Loading a fun fact...'}
-              </p>
-            </div>
+              <div className="mb-10 rounded-2xl border border-cyan-200 bg-gradient-to-r from-cyan-50 via-sky-50 to-indigo-100 p-6 shadow-sm dark:border-cyan-900 dark:from-cyan-950/50 dark:via-blue-950/40 dark:to-slate-950">
+                <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-cyan-700 dark:text-cyan-200">
+                  Fun Fact
+                </p>
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-cyan-500 text-white">
+                    <Sparkles className="size-5" />
+                  </div>
+                  <p className="break-words text-lg text-slate-900 dark:text-white">
+                    {funFactError ?? funFact ?? 'Loading a fun fact...'}
+                  </p>
+                </div>
+              </div>
 
-            <div className="mb-10">
-              {continueTarget?.nextLesson ? (
+              <div className="mb-10">
+                {continueTarget?.nextLesson ? (
                   <Link
                     to={`/subjects/${continueTarget.course.subjectId}/${continueTarget.course.id}/${continueTarget.nextLesson.id}`}
                   >
-                    <Card className="hover:shadow-lg transition-shadow">
+                    <Card className="overflow-hidden border-cyan-200 bg-gradient-to-br from-white to-cyan-50 transition-shadow hover:shadow-lg dark:border-cyan-900 dark:from-slate-900 dark:to-slate-950">
                       <CardHeader>
-                        <div className="flex items-start justify-between mb-2">
+                        <div className="mb-2 flex items-start justify-between">
                           <div
-                            className={`size-10 ${continueSubject?.color} rounded-lg flex items-center justify-center`}
+                            className={`flex size-10 items-center justify-center rounded-lg ${continueSubject?.color}`}
                           >
-                            <div className="size-5 bg-white/30 rounded" />
+                            <div className="size-5 rounded bg-white/30" />
                           </div>
                         </div>
-                        <CardTitle className="text-2xl flex items-center gap-2 min-w-0">
-                          <PlayCircle className="size-5" />
-                          <span className="break-words">Continue Learning</span>
+                        <CardTitle className="min-w-0 gap-2 text-2xl">
+                          <span className="flex items-center gap-2">
+                            <PlayCircle className="size-5" />
+                            <span className="break-words">Continue Learning</span>
+                          </span>
                         </CardTitle>
-                        <p className="text-muted-foreground dark:text-white break-words">
-                          {continueTarget.course.title} ·{' '}
-                          {continueTarget.nextLesson.title}
+                        <p className="break-words text-muted-foreground dark:text-white">
+                          {`${continueTarget.course.title} - ${continueTarget.nextLesson.title}`}
                         </p>
                       </CardHeader>
                       <CardContent>
-                        <Button size="lg" className="gap-2">
+                        <Button size="lg" className="gap-2 bg-cyan-600 text-white hover:bg-cyan-700">
                           Continue Lesson <ArrowRight className="size-4" />
                         </Button>
                       </CardContent>
@@ -234,13 +259,15 @@ export function Home() {
                   </Link>
                 ) : (
                   <Link to="/dashboard">
-                    <Card className="hover:shadow-lg transition-shadow">
+                    <Card className="overflow-hidden border-violet-200 bg-gradient-to-br from-white to-violet-50 transition-shadow hover:shadow-lg dark:border-violet-900 dark:from-slate-900 dark:to-slate-950">
                       <CardHeader>
-                        <CardTitle className="text-2xl flex items-center gap-2 min-w-0">
-                          <PlayCircle className="size-5" />
-                          <span className="break-words">Your Dashboard</span>
+                        <CardTitle className="min-w-0 gap-2 text-2xl">
+                          <span className="flex items-center gap-2">
+                            <PlayCircle className="size-5" />
+                            <span className="break-words">Your Dashboard</span>
+                          </span>
                         </CardTitle>
-                        <p className="text-muted-foreground dark:text-white break-words">
+                        <p className="break-words text-muted-foreground dark:text-white">
                           Pick up where you left off and track your progress.
                         </p>
                       </CardHeader>
@@ -284,13 +311,13 @@ export function Home() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="min-w-0">
-                        <p className="text-sm text-muted-foreground dark:text-white mb-1 break-words">
+                        <p className="mb-1 break-words text-sm text-muted-foreground dark:text-white">
                           {stat.label}
                         </p>
-                        <p className="text-3xl font-bold break-words">{stat.value}</p>
+                        <p className="break-words text-3xl font-bold">{stat.value}</p>
                       </div>
                       <div
-                        className={`size-11 rounded-lg ${stat.bgColor} flex items-center justify-center`}
+                        className={`flex size-11 items-center justify-center rounded-lg ring-4 ring-white/60 dark:ring-slate-900 ${stat.bgColor}`}
                       >
                         <stat.icon className={`size-5 ${stat.color}`} />
                       </div>

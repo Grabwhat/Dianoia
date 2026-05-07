@@ -24,7 +24,7 @@ export function Signup() {
     }
 
     setSubmitting(true)
-    const { data, error: signUpError } = await supabase.auth.signUp({
+    const { error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -43,10 +43,14 @@ export function Signup() {
   }
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-md">
+    <div className="relative min-h-[70vh] overflow-hidden px-4 py-12">
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-100 via-sky-50 to-emerald-100 dark:from-slate-950 dark:via-cyan-950/40 dark:to-emerald-950/40" />
+      <div className="absolute left-0 top-10 h-52 w-52 rounded-full bg-sky-400/20 blur-3xl dark:bg-sky-500/10" />
+      <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-emerald-400/20 blur-3xl dark:bg-emerald-500/10" />
+      <div className="relative flex items-center justify-center">
+      <Card className="w-full max-w-md border-white/30 bg-white/85 shadow-2xl shadow-sky-500/15 backdrop-blur dark:border-white/10 dark:bg-slate-950/80">
         <CardHeader>
-          <CardTitle className="text-2xl">Create account</CardTitle>
+          <CardTitle className="text-2xl font-black">Create account</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleSignup} className="space-y-4">
@@ -116,6 +120,7 @@ export function Signup() {
           </p>
         </CardContent>
       </Card>
+      </div>
     </div>
   )
 }

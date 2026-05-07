@@ -14,7 +14,6 @@ export function Login() {
   const location = useLocation()
   const state = location.state as LocationState | undefined
   const redirectTo = state?.from?.pathname || '/dashboard'
-  const needsAuth = redirectTo === '/dashboard' && !state?.from?.pathname
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -41,10 +40,14 @@ export function Login() {
   }
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-md">
+    <div className="relative min-h-[70vh] overflow-hidden px-4 py-12">
+      <div className="absolute inset-0 bg-gradient-to-br from-sky-100 via-cyan-50 to-indigo-100 dark:from-slate-950 dark:via-sky-950/50 dark:to-indigo-950/50" />
+      <div className="absolute left-0 top-8 h-56 w-56 rounded-full bg-cyan-400/20 blur-3xl dark:bg-cyan-500/10" />
+      <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-indigo-500/20 blur-3xl dark:bg-indigo-500/10" />
+      <div className="relative flex items-center justify-center">
+      <Card className="w-full max-w-md border-white/30 bg-white/85 shadow-2xl shadow-sky-500/15 backdrop-blur dark:border-white/10 dark:bg-slate-950/80">
         <CardHeader>
-          <CardTitle className="text-2xl">Log in</CardTitle>
+          <CardTitle className="text-2xl font-black">Log in</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {state?.from && (
@@ -94,6 +97,7 @@ export function Login() {
           </p>
         </CardContent>
       </Card>
+      </div>
     </div>
   )
 }

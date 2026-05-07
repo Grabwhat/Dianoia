@@ -129,16 +129,22 @@ export function Dashboard() {
   return (
     <div className="py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">My Dashboard</h1>
-          <p className="text-lg text-muted-foreground">
+        <div className="mb-10 overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-r from-sky-500 via-cyan-400 to-emerald-400 px-8 py-10 text-white shadow-2xl shadow-cyan-500/20 dark:border-white/10 dark:from-sky-700 dark:via-cyan-700 dark:to-emerald-700">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.35em] text-white/80">
+            Your Learning Hub
+          </p>
+          <h1 className="mb-2 text-4xl font-black md:text-5xl">My Dashboard</h1>
+          <p className="text-lg text-white/90">
             Track your learning progress and achievements
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {stats.map((stat) => (
-            <Card key={stat.label}>
+            <Card
+              key={stat.label}
+              className="border-white/20 bg-white/85 shadow-lg shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75"
+            >
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -161,7 +167,7 @@ export function Dashboard() {
                     )}
                   </div>
                   <div
-                    className={`size-12 ${stat.bgColor} rounded-lg flex items-center justify-center`}
+                    className={`size-12 ${stat.bgColor} rounded-2xl flex items-center justify-center shadow-md ring-4 ring-white/50 dark:ring-slate-900/40`}
                   >
                     <stat.icon className={`size-6 ${stat.color}`} />
                   </div>
@@ -211,7 +217,10 @@ export function Dashboard() {
                     : []
 
                 return (
-                  <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                  <Card
+                    key={course.id}
+                    className="border-white/20 bg-white/85 shadow-lg shadow-sky-500/10 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/20 dark:border-white/10 dark:bg-slate-950/75"
+                  >
                     <CardHeader>
                       <div className="flex items-start justify-between mb-2">
                         <div
@@ -263,9 +272,9 @@ export function Dashboard() {
             </div>
           </div>
         ) : (
-          <Card className="mb-12">
+            <Card className="mb-12 border-white/20 bg-white/85 shadow-xl shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
             <CardContent className="p-12 text-center">
-              <div className="size-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-sky-100 to-cyan-100 shadow-lg dark:from-sky-900/70 dark:to-cyan-900/70">
                 <BookOpen className="size-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Start Your Learning Journey</h3>
@@ -286,9 +295,9 @@ export function Dashboard() {
           <div>
             <h2 className="text-2xl font-bold mb-6">Achievements</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
+              <Card className="border-white/20 bg-white/85 shadow-lg shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
                 <CardContent className="p-6 text-center">
-                  <div className="size-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-yellow-100 to-amber-100 shadow-lg dark:from-yellow-900/60 dark:to-amber-900/60">
                     <Award className="size-8 text-yellow-600" />
                   </div>
                   <h3 className="font-semibold mb-2">First Steps</h3>
@@ -298,9 +307,9 @@ export function Dashboard() {
                 </CardContent>
               </Card>
               {completedCourses >= 1 && (
-                <Card>
+                <Card className="border-white/20 bg-white/85 shadow-lg shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
                   <CardContent className="p-6 text-center">
-                    <div className="size-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-100 to-green-100 shadow-lg dark:from-emerald-900/60 dark:to-green-900/60">
                       <Target className="size-8 text-green-600" />
                     </div>
                     <h3 className="font-semibold mb-2">Course Master</h3>
@@ -309,9 +318,9 @@ export function Dashboard() {
                 </Card>
               )}
               {currentStreak >= 7 && (
-                <Card>
+                <Card className="border-white/20 bg-white/85 shadow-lg shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
                   <CardContent className="p-6 text-center">
-                    <div className="size-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-100 to-amber-100 shadow-lg dark:from-orange-900/60 dark:to-amber-900/60">
                       <Flame className="size-8 text-orange-600" />
                     </div>
                     <h3 className="font-semibold mb-2">Week Warrior</h3>

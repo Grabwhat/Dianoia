@@ -278,14 +278,17 @@ export function Lesson() {
             {course.title}
           </Link>
           <span className="text-gray-400">/</span>
-          <span className="text-gray-600">{lesson.title}</span>
+          <span className="text-muted-foreground">{lesson.title}</span>
         </div>
 
-        <div className="mb-8">
+        <div className="mb-8 overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-r from-sky-500 via-cyan-400 to-indigo-500 px-8 py-8 text-white shadow-2xl shadow-sky-500/20 dark:border-white/10 dark:from-sky-700 dark:via-cyan-700 dark:to-indigo-900">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>
-              <h1 className="text-4xl font-bold mb-2">{lesson.title}</h1>
-              <Badge variant="secondary" className="mt-2">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-white/80">
+                Lesson Focus
+              </p>
+              <h1 className="text-4xl font-black mb-2">{lesson.title}</h1>
+              <Badge variant="secondary" className="mt-2 border-white/20 bg-white/15 text-white">
                 Part {currentComponentIndex + 1} of {lesson.components.length}:{' '}
                 {currentComponent.title}
               </Badge>
@@ -300,7 +303,7 @@ export function Lesson() {
         </div>
 
         {currentComponent.type === 'video' && currentComponent.videoUrl && (
-          <Card className="mb-8">
+          <Card className="mb-8 border-white/20 bg-white/85 shadow-xl shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
             <CardHeader>
               <CardTitle>{currentComponent.title}</CardTitle>
               <p className="text-sm text-muted-foreground">
@@ -325,7 +328,7 @@ export function Lesson() {
         )}
 
         {currentComponent.type === 'article' && currentComponent.articleContent && (
-          <Card className="mb-8">
+          <Card className="mb-8 border-white/20 bg-white/85 shadow-xl shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BookOpen className="size-5" />
@@ -346,7 +349,7 @@ export function Lesson() {
 
         {currentComponent.type === 'practice' && currentComponent.questions && (
           <div className="mb-8">
-            <Card>
+            <Card className="border-white/20 bg-white/85 shadow-xl shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-2">
@@ -448,7 +451,7 @@ export function Lesson() {
                             {hadWrongAttempt && !isQuestionCorrect && (
                               <div className="p-4 bg-red-50 border border-red-200 rounded-lg dark:bg-red-950/40 dark:border-red-900/40">
                                 <p className="text-red-800 dark:text-red-200 font-medium">
-                                  ❌ That&apos;s not quite right. Try again!
+                                  That's not quite right. Try again!
                                 </p>
                               </div>
                             )}
@@ -460,14 +463,14 @@ export function Lesson() {
                                     onClick={() => setHintRevealed(true)}
                                     className="px-3 py-2 bg-yellow-200 hover:bg-yellow-300 rounded-md text-yellow-900 font-medium dark:bg-yellow-900/60 dark:text-yellow-100 dark:hover:bg-yellow-900/80"
                                   >
-                                    💡 Reveal Hint
+                                    Reveal Hint
                                   </button>
                                 ) : (
                                   <div className="flex items-start gap-3">
                                     <Lightbulb className="size-6 text-yellow-600 dark:text-yellow-300 flex-shrink-0 mt-0.5" />
                                     <div className="flex-1">
                                       <div className="font-medium text-yellow-900 dark:text-yellow-100 mb-2">
-                                        💡 Hint:
+                                        Hint:
                                       </div>
                                       <div className="text-yellow-800 dark:text-yellow-200">
                                         {question.hint}
@@ -497,7 +500,7 @@ export function Lesson() {
                               <div className="space-y-4">
                                 <div className="p-4 bg-green-50 rounded-lg border border-green-200 dark:bg-green-950/40 dark:border-green-900/40">
                                   <p className="text-green-800 dark:text-green-200 font-medium text-lg">
-                                    ✓ Correct!
+                                    Correct!
                                   </p>
                                 </div>
                                 <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-950/40 dark:border-blue-900/40">
@@ -580,12 +583,12 @@ export function Lesson() {
         {currentComponent.type === 'video' && (
           <div className="mb-8">
             {completedParts.includes(currentComponent.id) ? (
-              <Button onClick={unmarkPartComplete} size="lg" variant="outline" className="w-full gap-2">
+              <Button onClick={unmarkPartComplete} size="lg" variant="outline" className="w-full gap-2 shadow-md">
                 <CheckCircle className="size-5" />
                 Unmark as Complete
               </Button>
             ) : (
-              <Button onClick={markPartComplete} size="lg" className="w-full gap-2">
+              <Button onClick={markPartComplete} size="lg" className="w-full gap-2 shadow-lg shadow-sky-500/20">
                 <CheckCircle className="size-5" />
                 Mark this part as Complete
               </Button>
@@ -596,12 +599,12 @@ export function Lesson() {
         {currentComponent.type === 'article' && (
           <div className="mb-8">
             {completedParts.includes(currentComponent.id) ? (
-              <Button onClick={unmarkPartComplete} size="lg" variant="outline" className="w-full gap-2">
+              <Button onClick={unmarkPartComplete} size="lg" variant="outline" className="w-full gap-2 shadow-md">
                 <CheckCircle className="size-5" />
                 Unmark as Complete
               </Button>
             ) : (
-              <Button onClick={markPartComplete} size="lg" className="w-full gap-2">
+              <Button onClick={markPartComplete} size="lg" className="w-full gap-2 shadow-lg shadow-sky-500/20">
                 <CheckCircle className="size-5" />
                 Mark this part as Complete
               </Button>
@@ -609,7 +612,7 @@ export function Lesson() {
           </div>
         )}
 
-        <div className="mb-4 flex items-center gap-3">
+        <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-white/20 bg-white/75 p-3 shadow-lg shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/65">
           <Button
             onClick={handlePreviousComponent}
             disabled={currentComponentIndex === 0}
@@ -627,7 +630,7 @@ export function Lesson() {
             Next Part
             <ChevronRight className="size-4" />
           </Button>
-          <span className="text-sm text-muted-foreground">
+          <span className="rounded-full bg-sky-100 px-3 py-1 text-sm font-medium text-sky-700 dark:bg-sky-900/50 dark:text-sky-100">
             {partsCompletedCount}/{lesson.components.length} parts completed
           </span>
         </div>

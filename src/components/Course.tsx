@@ -8,9 +8,7 @@ import { Progress } from './ui/progress'
 import {
   Clock,
   PlayCircle,
-  FileText,
   CheckCircle,
-  Circle,
   ArrowLeft,
 } from 'lucide-react'
 
@@ -55,19 +53,6 @@ export function Course() {
 
   const progressPercentage =
     (completedLessons.length / course.lessons.length) * 100
-
-  const getLessonIcon = (type: string) => {
-    switch (type) {
-      case 'video':
-        return PlayCircle
-      case 'practice':
-        return CheckCircle
-      case 'article':
-        return FileText
-      default:
-        return Circle
-    }
-  }
 
   return (
     <div className="py-12">
