@@ -21,6 +21,13 @@ export function Home() {
   const [lessonProgress, setLessonProgress] = useState<LessonProgressRow[]>([])
   const [currentStreak, setCurrentStreak] = useState(0)
 
+  const getLocalDateString = (date: Date) => {
+    const y = date.getFullYear()
+    const m = String(date.getMonth() + 1).padStart(2, '0')
+    const d = String(date.getDate()).padStart(2, '0')
+    return `${y}-${m}-${d}`
+  }
+
   const progressData = useMemo(() => {
     const data: Record<string, string[]> = {}
     lessonProgress.forEach((row) => {
@@ -109,11 +116,25 @@ export function Home() {
 
       const { data: streakRow } = await supabase
         .from('user_streaks')
-        .select('current_streak')
+        .select('current_streak,last_completed_date')
         .eq('user_id', user.id)
         .maybeSingle()
 
-      setCurrentStreak(streakRow?.current_streak ?? 0)
+      const today = getLocalDateString(new Date())
+      const yesterdayDate = new Date()
+      yesterdayDate.setDate(yesterdayDate.getDate() - 1)
+      const yesterday = getLocalDateString(yesterdayDate)
+      const lastCompletedDate = streakRow?.last_completed_date ?? null
+
+      if (lastCompletedDate && lastCompletedDate !== today && lastCompletedDate !== yesterday) {
+        await supabase
+          .from('user_streaks')
+          .update({ current_streak: 0 })
+          .eq('user_id', user.id)
+        setCurrentStreak(0)
+      } else {
+        setCurrentStreak(streakRow?.current_streak ?? 0)
+      }
     }
 
     loadProgress()
