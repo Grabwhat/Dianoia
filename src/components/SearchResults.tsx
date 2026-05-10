@@ -26,20 +26,22 @@ export function SearchResults() {
   return (
     <div className="py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="mb-8">
+        <div className="mb-10 overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-600 px-8 py-10 text-white shadow-2xl shadow-sky-500/20 dark:border-white/10 dark:from-cyan-500 dark:via-sky-700 dark:to-indigo-900">
           <div className="flex items-center gap-2 mb-4">
-            <Link to="/subjects" className="text-blue-600 hover:underline">
+            <Link to="/subjects" className="text-white/90 hover:text-white hover:underline">
               Subjects
             </Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-600">Search Results</span>
+            <span className="text-white/50">/</span>
+            <span className="text-white/80">Search Results</span>
           </div>
 
           <div className="flex items-center gap-3 mb-2">
-            <Search className="size-8 text-gray-400" />
-            <h1 className="text-4xl font-bold">Search Results for "{query}"</h1>
+            <Search className="size-8 text-white/80" />
+            <h1 className="text-4xl font-black md:text-5xl">
+              Search Results for "{query}"
+            </h1>
           </div>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-white/90">
             Found {searchResults.length}{' '}
             {searchResults.length === 1 ? 'course' : 'courses'}
           </p>
@@ -64,26 +66,26 @@ export function SearchResults() {
                     query,
                   )}`}
                 >
-                  <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+                  <Card className="h-full cursor-pointer overflow-hidden border-white/20 bg-white/85 shadow-lg shadow-sky-500/10 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/20 dark:border-white/10 dark:bg-slate-950/75">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-3">
                         <div
-                          className={`size-12 ${subject?.color} rounded-lg flex items-center justify-center flex-shrink-0`}
+                          className={`size-12 ${subject?.color} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg`}
                         >
                           <div className="size-6 bg-white/30 rounded" />
                         </div>
                         <Badge variant="secondary">{course.level}</Badge>
                       </div>
                       <CardTitle className="text-xl mb-2">{course.title}</CardTitle>
-                      <p className="text-sm text-gray-600 mb-3">
+                      <p className="mb-3 text-sm text-muted-foreground">
                         {course.description}
                       </p>
-                      <div className="text-xs text-blue-600 font-medium">
+                      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600 dark:text-sky-300">
                         {subject?.name}
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex items-center gap-4 text-sm text-gray-600">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <PlayCircle className="size-4" />
                           <span>{course.lessons.length} lessons</span>
@@ -100,11 +102,13 @@ export function SearchResults() {
             })}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <div className="max-w-md mx-auto">
-              <Search className="size-16 text-gray-300 mx-auto mb-4" />
+          <div className="py-16 text-center">
+            <div className="mx-auto max-w-md rounded-[2rem] border border-white/20 bg-white/80 px-8 py-10 shadow-xl shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
+              <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-sky-100 to-cyan-100 shadow-lg dark:from-sky-900/70 dark:to-cyan-900/70">
+                <Search className="size-8 text-sky-600 dark:text-sky-300" />
+              </div>
               <h2 className="text-2xl font-bold mb-2">No courses found</h2>
-              <p className="text-gray-600 mb-6">
+              <p className="mb-6 text-muted-foreground">
                 We couldn't find any courses matching "{query}". Try searching with
                 different keywords or browse all subjects.
               </p>

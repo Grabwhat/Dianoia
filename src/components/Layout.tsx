@@ -24,7 +24,7 @@ export function Layout() {
   const { user } = useAuth()
 
   useEffect(() => {
-    document.title = 'Vantage - Psychology Education'
+    document.title = 'Dianoia - Psychology Education'
   }, [])
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export function Layout() {
                 <GraduationCap className="size-6 text-white" />
               </div>
               <span className="bg-gradient-to-r from-sky-600 via-cyan-500 to-indigo-600 bg-clip-text pl-1 pr-3 text-xl font-extrabold text-transparent lg:inline dark:from-sky-300 dark:via-cyan-200 dark:to-indigo-300">
-                Vantage
+                Dianoia
               </span>
             </Link>
 
