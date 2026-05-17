@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { useAuth } from './AuthProvider'
 import { supabase } from '../lib/supabase'
 import { courses, subjects } from '../data/courses'
+import { Seo } from './Seo'
 
 type LessonProgressRow = {
   course_id: string
@@ -142,6 +143,10 @@ export function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Seo
+        title="Dianoia | Free Online Psychology Courses and Lessons"
+        description="Learn psychology online with Dianoia through free psychology courses, beginner-friendly lessons, quizzes, and progress tracking."
+      />
       <div className="space-y-10 pb-12">
         <section className="bg-gradient-to-br from-cyan-300 via-sky-400 to-indigo-500 dark:from-cyan-900 dark:via-blue-950 dark:to-slate-950 py-16">
           <div className="max-w-6xl mx-auto px-4">
@@ -155,9 +160,10 @@ export function Home() {
                 Master the Psychology of Life With Dianoia
               </h1>
               <p className="mb-8 break-words text-xl text-white/90">
-                Explore the fascinating world of psychology through interactive lessons,
-                practice exercises, and evidence-based learning. Understand the mind,
-                behavior, and human experience.
+                Explore free online psychology courses through interactive lessons,
+                beginner-friendly practice exercises, and evidence-based learning.
+                Learn psychology online while building a deeper understanding of the
+                mind, behavior, and human experience.
               </p>
 
               {!user ? (
@@ -200,19 +206,19 @@ export function Home() {
                 {[
                   {
                     title: 'Structured Lessons',
-                    text: 'Clear, bite-sized modules that build real understanding.',
+                    text: 'Clear, beginner-friendly psychology lessons that turn complex ideas into practical learning.',
                     className:
                       'border-cyan-200 bg-gradient-to-br from-cyan-50 to-sky-100 dark:border-cyan-900 dark:from-cyan-950/50 dark:to-slate-950',
                   },
                   {
                     title: 'Practice & Quizzes',
-                    text: 'Apply concepts with interactive questions and feedback.',
+                    text: 'Apply psychology concepts through interactive quizzes, feedback, and free online practice.',
                     className:
                       'border-fuchsia-200 bg-gradient-to-br from-fuchsia-50 to-rose-100 dark:border-fuchsia-900 dark:from-fuchsia-950/40 dark:to-slate-950',
                   },
                   {
                     title: 'Progress Tracking',
-                    text: 'See your streaks, completed lessons, and growth.',
+                    text: 'Track completed psychology courses, lesson streaks, and your growth over time.',
                     className:
                       'border-amber-200 bg-gradient-to-br from-amber-50 to-orange-100 dark:border-amber-900 dark:from-amber-950/40 dark:to-slate-950',
                   },
@@ -345,6 +351,54 @@ export function Home() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              <div className="mt-12 rounded-[2rem] border border-white/20 bg-white/80 p-8 shadow-xl shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
+                <h2 className="mb-6 text-3xl font-bold text-slate-900 dark:text-white">
+                  Frequently Asked Questions
+                </h2>
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div>
+                    <h3 className="mb-2 text-lg font-semibold">
+                      Are Dianoia&apos;s psychology courses free?
+                    </h3>
+                    <p className="text-muted-foreground dark:text-slate-200">
+                      Yes. Dianoia is built around free psychology courses and free
+                      psychology lessons so learners can explore the subject without a
+                      paywall.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-lg font-semibold">
+                      Can beginners learn psychology here?
+                    </h3>
+                    <p className="text-muted-foreground dark:text-slate-200">
+                      Absolutely. Our beginner-friendly psychology lessons are designed
+                      for people who want an introduction to psychology before going
+                      deeper into specialized topics.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-lg font-semibold">
+                      What topics do the courses cover?
+                    </h3>
+                    <p className="text-muted-foreground dark:text-slate-200">
+                      Dianoia covers a range of psychology subjects, including mental
+                      health, human behavior, cognition, development, and research-based
+                      psychological concepts.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-lg font-semibold">
+                      How do I learn psychology online with Dianoia?
+                    </h3>
+                    <p className="text-muted-foreground dark:text-slate-200">
+                      Create an account, choose a course, and work through free online
+                      psychology lessons, quizzes, and progress tracking at your own
+                      pace.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </section>

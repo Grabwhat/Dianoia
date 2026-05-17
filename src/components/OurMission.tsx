@@ -1,4 +1,5 @@
 import { BookOpen, Compass, HeartHandshake, Lightbulb, Sparkles, Telescope } from 'lucide-react'
+import { Seo } from './Seo'
 
 const principles = [
   {
@@ -24,6 +25,10 @@ const principles = [
 export function OurMission() {
   return (
     <div className="min-h-[calc(100vh-80px)] bg-background text-foreground py-12">
+      <Seo
+        title="Our Mission | Free Psychology Education | Dianoia"
+        description="Learn how Dianoia's mission supports free psychology education through accessible online psychology lessons and beginner-friendly courses."
+      />
       <div className="max-w-6xl mx-auto px-4">
         <div className="max-w-4xl mx-auto mb-12 text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-cyan-600 dark:text-cyan-300">
@@ -33,7 +38,8 @@ export function OurMission() {
             Dianoia's Mission
           </h1>
           <p className="text-lg text-muted-foreground dark:text-slate-200">
-            Free psychology education with color, clarity, and room to go deep.
+            Free psychology education with color, clarity, and room to go deep for
+            anyone looking to learn psychology online.
           </p>
         </div>
 
@@ -124,6 +130,50 @@ export function OurMission() {
               choose access to a dependable and enriching pool of knowledge, in
               a space designed to inspire learning and growth.
             </p>
+          </section>
+
+          <section className="rounded-2xl border border-sky-200 bg-sky-50 p-12 shadow-sm dark:border-sky-900 dark:bg-sky-950/40">
+            <h3 className="mb-6 text-3xl font-bold">Questions About Our Free Courses</h3>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div>
+                <h4 className="mb-2 text-lg font-semibold">
+                  Why offer free online psychology courses?
+                </h4>
+                <p className="text-muted-foreground dark:text-sky-50 leading-relaxed">
+                  We believe free psychology education makes it easier for curious
+                  learners, students, and career explorers to start learning without
+                  financial barriers.
+                </p>
+              </div>
+              <div>
+                <h4 className="mb-2 text-lg font-semibold">
+                  Who are Dianoia&apos;s psychology lessons for?
+                </h4>
+                <p className="text-muted-foreground dark:text-sky-50 leading-relaxed">
+                  Our lessons are designed for beginners, independent learners, and
+                  anyone who wants an accessible way to study psychology online.
+                </p>
+              </div>
+              <div>
+                <h4 className="mb-2 text-lg font-semibold">
+                  What makes Dianoia different?
+                </h4>
+                <p className="text-muted-foreground dark:text-sky-50 leading-relaxed">
+                  Dianoia combines free psychology courses, structured lessons, quiz
+                  practice, and a mission-driven nonprofit approach focused on useful,
+                  trustworthy learning.
+                </p>
+              </div>
+              <div>
+                <h4 className="mb-2 text-lg font-semibold">
+                  Can I start with beginner psychology topics?
+                </h4>
+                <p className="text-muted-foreground dark:text-sky-50 leading-relaxed">
+                  Yes. We aim to make introductory psychology approachable, then guide
+                  learners into more specialized subjects as their confidence grows.
+                </p>
+              </div>
+            </div>
           </section>
         </div>
       </div>

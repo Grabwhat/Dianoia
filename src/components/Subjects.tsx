@@ -11,6 +11,7 @@ import {
 import { Badge } from './ui/badge'
 import { Tabs, TabsList, TabsTrigger } from './ui/tabs'
 import { Clock, BookOpen } from 'lucide-react'
+import { Seo } from './Seo'
 
 export function Subjects() {
   const [searchParams] = useSearchParams()
@@ -26,6 +27,10 @@ export function Subjects() {
 
   return (
     <div className="py-12">
+      <Seo
+        title="Psychology Courses | Free Online Psychology Lessons | Dianoia"
+        description="Browse free online psychology courses and psychology lessons by subject, from beginner-friendly introductions to deeper specializations."
+      />
       <div className="max-w-6xl mx-auto px-4">
         <div className="mb-12 overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-600 px-8 py-12 text-center text-white shadow-2xl shadow-sky-500/20 dark:border-white/10 dark:from-cyan-500 dark:via-sky-700 dark:to-indigo-900">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.35em] text-white/80">
@@ -35,8 +40,17 @@ export function Subjects() {
             Psychology Specializations
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-white/90">
-            Explore different branches of psychology and deepen your understanding of
-            human behavior and mental processes
+            Browse free psychology courses across different branches of psychology and
+            deepen your understanding of human behavior, mental processes, and
+            beginner-friendly psychology topics.
+          </p>
+        </div>
+
+        <div className="mb-10 rounded-[2rem] border border-white/20 bg-white/80 p-6 shadow-lg shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75">
+          <p className="text-base leading-relaxed text-muted-foreground dark:text-slate-200">
+            Whether you&apos;re looking for free online psychology courses, an
+            introduction to psychology, or psychology lessons for beginners, this page
+            helps you explore topics by subject and find the best place to start.
           </p>
         </div>
 
