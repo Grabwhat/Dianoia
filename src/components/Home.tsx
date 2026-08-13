@@ -1,5 +1,17 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Award, BookOpen, Flame, PlayCircle, Sparkles } from 'lucide-react'
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  Brain,
+  ClipboardCheck,
+  Compass,
+  Flame,
+  Lightbulb,
+  PlayCircle,
+  ShieldCheck,
+  Sparkles,
+} from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
@@ -86,6 +98,57 @@ export function Home() {
   const continueSubject = continueTarget
     ? subjects.find((subject) => subject.id === continueTarget.course.subjectId)
     : undefined
+
+  const landingFeatures = [
+    {
+      title: 'Structured Lessons',
+      text: 'Clear, beginner-friendly psychology lessons that turn complex ideas into practical learning.',
+      icon: BookOpen,
+      className:
+        'border-cyan-200 bg-gradient-to-br from-cyan-50 to-sky-100 dark:border-cyan-900 dark:from-cyan-950/50 dark:to-slate-950',
+    },
+    {
+      title: 'Practice & Quizzes',
+      text: 'Apply psychology concepts through interactive quizzes, feedback, and free online practice.',
+      icon: ClipboardCheck,
+      className:
+        'border-fuchsia-200 bg-gradient-to-br from-fuchsia-50 to-rose-100 dark:border-fuchsia-900 dark:from-fuchsia-950/40 dark:to-slate-950',
+    },
+    {
+      title: 'Progress Tracking',
+      text: 'Track completed psychology courses, lesson streaks, and your growth over time.',
+      icon: Flame,
+      className:
+        'border-amber-200 bg-gradient-to-br from-amber-50 to-orange-100 dark:border-amber-900 dark:from-amber-950/40 dark:to-slate-950',
+    },
+  ]
+
+  const learningSteps = [
+    {
+      title: 'Choose a psychology path',
+      text: 'Start with a subject that matches your curiosity, from human behavior to mental health and cognition.',
+      icon: Compass,
+    },
+    {
+      title: 'Learn in focused parts',
+      text: 'Move through articles, videos, and practice questions without feeling buried by information.',
+      icon: Brain,
+    },
+    {
+      title: 'Build lasting understanding',
+      text: 'Use progress tracking and explanations to turn one lesson into a steady learning habit.',
+      icon: Lightbulb,
+    },
+  ]
+
+  const topicHighlights = [
+    'Introductory psychology',
+    'Human behavior',
+    'Mental health concepts',
+    'Cognition and learning',
+    'Developmental psychology',
+    'Research-based thinking',
+  ]
 
   useEffect(() => {
     const loadFact = async () => {
@@ -199,40 +262,128 @@ export function Home() {
         {!user ? (
           <section className="py-10">
             <div className="max-w-6xl mx-auto px-4">
-              <h2 className="mb-8 text-center text-3xl font-bold text-slate-900 dark:text-white">
-                Why Choose Dianoia
-              </h2>
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="mb-10 grid gap-4 rounded-[2rem] border border-white/20 bg-white/80 p-5 shadow-xl shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75 md:grid-cols-3">
                 {[
-                  {
-                    title: 'Structured Lessons',
-                    text: 'Clear, beginner-friendly psychology lessons that turn complex ideas into practical learning.',
-                    className:
-                      'border-cyan-200 bg-gradient-to-br from-cyan-50 to-sky-100 dark:border-cyan-900 dark:from-cyan-950/50 dark:to-slate-950',
-                  },
-                  {
-                    title: 'Practice & Quizzes',
-                    text: 'Apply psychology concepts through interactive quizzes, feedback, and free online practice.',
-                    className:
-                      'border-fuchsia-200 bg-gradient-to-br from-fuchsia-50 to-rose-100 dark:border-fuchsia-900 dark:from-fuchsia-950/40 dark:to-slate-950',
-                  },
-                  {
-                    title: 'Progress Tracking',
-                    text: 'Track completed psychology courses, lesson streaks, and your growth over time.',
-                    className:
-                      'border-amber-200 bg-gradient-to-br from-amber-50 to-orange-100 dark:border-amber-900 dark:from-amber-950/40 dark:to-slate-950',
-                  },
-                ].map((item) => (
+                  ['Free', 'Psychology courses'],
+                  ['Beginner-friendly', 'Lessons and quizzes'],
+                  ['Self-paced', 'Progress tracking'],
+                ].map(([value, label]) => (
+                  <div key={label} className="px-4 py-3 text-center">
+                    <p className="text-2xl font-black text-slate-900 dark:text-white">
+                      {value}
+                    </p>
+                    <p className="text-sm font-medium text-muted-foreground dark:text-slate-200">
+                      {label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mb-8 text-center">
+                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-700 dark:text-cyan-300">
+                  Built for curious learners
+                </p>
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+                  Why Choose Dianoia
+                </h2>
+              </div>
+              <div className="grid gap-6 md:grid-cols-3">
+                {landingFeatures.map((item) => {
+                  const Icon = item.icon
+                  return (
                   <div
                     key={item.title}
                     className={`rounded-2xl border p-6 shadow-sm transition-transform hover:-translate-y-1 ${item.className}`}
                   >
+                    <div className="mb-4 flex size-11 items-center justify-center rounded-xl bg-slate-950 text-white shadow-md dark:bg-white dark:text-slate-950">
+                      <Icon className="size-5" />
+                    </div>
                     <h3 className="mb-2 break-words text-lg font-semibold">{item.title}</h3>
                     <p className="break-words text-muted-foreground dark:text-white">
                       {item.text}
                     </p>
                   </div>
-                ))}
+                  )
+                })}
+              </div>
+
+              <div className="mt-16 grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+                <div>
+                  <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700 dark:text-emerald-300">
+                    Learn with direction
+                  </p>
+                  <h2 className="mb-4 text-3xl font-black text-slate-900 dark:text-white">
+                    A professional learning path without the paywall
+                  </h2>
+                  <p className="text-lg leading-relaxed text-muted-foreground dark:text-slate-200">
+                    Dianoia helps learners explore psychology through organized
+                    courses, approachable explanations, and interactive review. It is
+                    designed for students, independent learners, and anyone who wants
+                    a thoughtful introduction to psychology before going deeper.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    {topicHighlights.map((topic) => (
+                      <span
+                        key={topic}
+                        className="rounded-full border border-sky-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm dark:border-sky-900 dark:bg-slate-950 dark:text-slate-100"
+                      >
+                        {topic}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid gap-4">
+                  {learningSteps.map((step, index) => {
+                    const Icon = step.icon
+                    return (
+                      <div
+                        key={step.title}
+                        className="grid grid-cols-[auto_1fr] gap-4 rounded-2xl border border-white/20 bg-white/85 p-5 shadow-lg shadow-sky-500/10 dark:border-white/10 dark:bg-slate-950/75"
+                      >
+                        <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 text-white shadow-md">
+                          <Icon className="size-6" />
+                        </div>
+                        <div>
+                          <p className="mb-1 text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                            Step {index + 1}
+                          </p>
+                          <h3 className="mb-1 text-lg font-bold text-slate-900 dark:text-white">
+                            {step.title}
+                          </h3>
+                          <p className="text-muted-foreground dark:text-slate-200">
+                            {step.text}
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div className="mt-16 overflow-hidden rounded-[2rem] border border-emerald-200 bg-gradient-to-r from-emerald-500 via-cyan-500 to-sky-500 p-8 text-white shadow-2xl shadow-cyan-500/20 dark:border-emerald-900">
+                <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+                  <div>
+                    <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-white/20">
+                      <ShieldCheck className="size-6" />
+                    </div>
+                    <h2 className="mb-3 text-3xl font-black">
+                      Start learning psychology with clarity, not clutter.
+                    </h2>
+                    <p className="max-w-3xl text-lg text-white/90">
+                      Create a free account to save lesson progress, maintain your
+                      streak, and return to the exact course you were working through.
+                    </p>
+                  </div>
+                  <Link to="/signup">
+                    <Button
+                      size="lg"
+                      className="gap-2 bg-slate-950 text-white shadow-lg hover:bg-slate-900"
+                    >
+                      Create account <ArrowRight className="size-4" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
