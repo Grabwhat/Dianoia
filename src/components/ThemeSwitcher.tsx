@@ -12,7 +12,7 @@ export function ThemeSwitcher() {
         id="theme-select"
         value={theme ?? 'system'}
         onChange={(e) => setTheme(e.target.value)}
-        className="h-9 rounded-md border border-border bg-background px-3 text-sm text-foreground shadow-sm hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring"
+        className="h-9 transition cursor-pointer rounded-md border border-border bg-background px-3 text-sm text-foreground shadow-sm hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring"
       >
         <option value="system">System</option>
         <option value="light">Light</option>

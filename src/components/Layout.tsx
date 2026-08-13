@@ -124,8 +124,8 @@ export function Layout() {
                       size="sm"
                       className="gap-1.5 rounded-xl"
                     >
-                      <LayoutDashboard className="size-4" />
-                      <span className="hidden xl:inline">Dashboard</span>
+                      <Users className="size-4" />
+                      <span className="hidden xl:inline">Meet the Crew</span>
                     </Button>
                   </Link>
                 </TooltipTrigger>
@@ -160,8 +160,8 @@ export function Layout() {
                       size="sm"
                       className="gap-1.5 rounded-xl"
                     >
-                      <Users className="size-4" />
-                      <span className="hidden xl:inline">Meet the Crew</span>
+                      <LayoutDashboard className="size-4" />
+                      <span className="hidden xl:inline">Dashboard</span>
                     </Button>
                   </Link>
                 </TooltipTrigger>
