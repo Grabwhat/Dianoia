@@ -214,6 +214,11 @@ export function Home() {
         <section className="bg-gradient-to-br from-cyan-300 via-sky-400 to-indigo-500 dark:from-cyan-900 dark:via-blue-950 dark:to-slate-950 py-16">
           <div className="max-w-6xl mx-auto px-4">
             <div className="max-w-5xl mx-auto text-center">
+              <img
+                src="/dianoia-logo.png"
+                alt="Dianoia psychology education logo"
+                className="mx-auto mb-6 size-28 rounded-3xl object-cover shadow-2xl shadow-violet-900/20 ring-4 ring-white/40 md:size-32"
+              />
               {user && (
                 <p className="mb-4 break-words text-3xl font-bold text-white md:text-4xl drop-shadow-sm">
                   Welcome back, {profile?.username || 'there'}

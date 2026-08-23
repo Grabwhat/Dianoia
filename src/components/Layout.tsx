@@ -1,6 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import {
-  GraduationCap,
   Home,
   BookOpen,
   LayoutDashboard,
@@ -56,8 +55,12 @@ export function Layout() {
         <div className="max-w-6xl mx-auto px-4 py-5">
           <div className="flex flex-wrap items-center gap-4 lg:gap-6">
             <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-              <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-600 shadow-lg shadow-sky-500/30">
-                <GraduationCap className="size-6 text-white" />
+              <div className="flex size-11 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg shadow-violet-500/20 ring-1 ring-violet-200 dark:bg-slate-950 dark:ring-violet-900/50">
+                <img
+                  src="/dianoia-logo.png"
+                  alt="Dianoia logo"
+                  className="size-full object-cover"
+                />
               </div>
               <span className="bg-gradient-to-r from-sky-600 via-cyan-500 to-indigo-600 bg-clip-text pl-1 pr-3 text-xl font-extrabold text-transparent lg:inline dark:from-sky-300 dark:via-cyan-200 dark:to-indigo-300">
                 Dianoia
